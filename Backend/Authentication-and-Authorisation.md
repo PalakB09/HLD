@@ -1,4 +1,4 @@
-# Authentication & Authorization – Ultra Detailed Complete Notes
+# Authentication & Authorization 
 
 ## Overview
 
