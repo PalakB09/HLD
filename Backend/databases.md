@@ -718,6 +718,7 @@ Example:
 
 #### Use FLOAT when:
 - Small inaccuracies acceptable
+- mostly faster than decimal
 - Example:
   - Measurements
   - Scientific data
@@ -778,7 +779,7 @@ VARCHAR(255)
 
 ### Recommendation
 
-- Avoid CHAR
+- Avoid CHAR (only if we know what the length will be)
 - Prefer TEXT
 
 ---
@@ -958,23 +959,6 @@ Values must match:
 - Use TIMESTAMPTZ for time
 
 ---
-
-## End of Part 3
-
-# Databases — Complete Notes (Part 4: Migrations & Schema Design)
-
-## Introduction
-
-Now that we understand:
-- What databases are
-- Types of databases
-- Data types
-
-We move to:
-> How databases are actually used in real backend systems
-
----
-
 ## What is Schema?
 
 ### Definition
@@ -1059,6 +1043,10 @@ ALTER TABLE users ADD COLUMN age INTEGER;
 ---
 
 ## Migration Workflow
+Try DB Mate for the same
+- dbmate up
+- dbmate down
+<img width="564" height="157" alt="image" src="https://github.com/user-attachments/assets/6da6502c-6f0d-4aa8-be20-e772b771e4df" />
 
 ### Step 1: Create Migration
 
@@ -1098,7 +1086,10 @@ Each migration:
 
 ### Definition
 
-Reverting a migration
+Reverting a migration, Called down migration (always done in reverse order of the creation)
+<img width="227" height="166" alt="image" src="https://github.com/user-attachments/assets/98bf841c-8e0b-454d-8397-6f67ac1aa770" />
+
+(Up migration is creating the table and other cols)
 
 Example:
 - Remove added column
@@ -1139,7 +1130,8 @@ Example:
 Create tables:
 - Define columns
 - Choose data types
-
+- Documentation
+- Define Enums ( CREATE TYPE project_status AS ENUM ('active',' completed')
 ---
 
 ### Step 4: Define Relationships
@@ -1214,9 +1206,20 @@ Example:
 age > 0
 ```
 
+#### Reference USERS
+- on delete cascade
+- on delete set null (if null not possible will give error)
+- on delete set default 
+  
+<img width="580" height="456" alt="image" src="https://github.com/user-attachments/assets/d3ed8f3b-7ad5-45fc-b297-56d49820e777" />
+<img width="502" height="491" alt="image" src="https://github.com/user-attachments/assets/c5d8ae8f-1269-488b-981b-b9b8863b05f7" />
+
+
+**TABLE NAMES ARE PLURAL**
+**SEEDING: means adding data for testing purpose in dev env**
 ---
 
-## Indexes (High-Level)
+## Indexes 
 
 ### Purpose
 
@@ -1226,7 +1229,7 @@ age > 0
 
 ### How It Works
 
-- Creates optimized lookup structure
+- Creates optimised lookup structure
 
 ---
 
@@ -1297,420 +1300,4 @@ Project Management System:
 
 ---
 
-#### Tasks
-- id
-- title
-- project_id
-
----
-
-### Relationships
-
-- User → Projects (1 to many)
-- Project → Tasks (1 to many)
-
----
-
-## Final Workflow Summary
-
-1. UI → requirements  
-2. Extract entities  
-3. Design schema  
-4. Define relationships  
-5. Write migrations  
-6. Apply migrations  
-7. Build APIs  
-
----
-
-## Final Understanding
-
-Database design is not just about storage.
-
-It is about:
-- Structure
-- Relationships
-- Integrity
-- Scalability
-
----
-
-## End of Part 4
-
-# Databases — Complete Notes (Part 4: Migrations & Schema Design)
-
-## Introduction
-
-Now that we understand:
-- What databases are
-- Types of databases
-- Data types
-
-We move to:
-> How databases are actually used in real backend systems
-
----
-
-## What is Schema?
-
-### Definition
-
-Schema is:
-- The structure of the database
-- Defines:
-  - Tables
-  - Columns
-  - Data types
-  - Constraints
-
----
-
-### Example Schema
-
-```
-users table:
-- id
-- name
-- email
-- created_at
-```
-
----
-
-## Important Insight
-
-Schema is the **source of truth** for:
-- Data structure
-- Relationships
-
----
-
-## What are Migrations?
-
-### Definition
-
-Migrations are:
-> Version-controlled changes to database schema
-
----
-
-## Why Migrations Are Needed
-
-Problem:
-- Database structure changes over time
-
-Examples:
-- Add new column
-- Modify data type
-- Add new table
-
----
-
-### Without Migrations
-
-- Manual changes
-- No history
-- Hard to track changes
-- Difficult collaboration
-
----
-
-### With Migrations
-
-- Changes are tracked
-- Version controlled
-- Repeatable
-- Safe
-
----
-
-## Migration Example
-
-### Add Column
-
-```
-ALTER TABLE users ADD COLUMN age INTEGER;
-```
-
----
-
-## Migration Workflow
-
-### Step 1: Create Migration
-
-- Define change
-
----
-
-### Step 2: Apply Migration
-
-- Run migration on DB
-
----
-
-### Step 3: Store Version
-
-- Track applied migrations
-
----
-
-## Key Concept: Versioning
-
-Each migration:
-- Has an ID
-- Applied sequentially
-
----
-
-## Benefits
-
-- Team collaboration
-- Rollback support
-- Consistency across environments
-
----
-
-## Rollbacks
-
-### Definition
-
-Reverting a migration
-
-Example:
-- Remove added column
-
----
-
-## Why Important
-
-- Fix mistakes
-- Recover from issues
-
----
-
-## Real Backend Workflow
-
----
-
-### Step 1: Start from UI
-
-Example:
-- Figma design
-
----
-
-### Step 2: Identify Entities
-
-Extract nouns:
-
-Example:
-- Users
-- Projects
-- Tasks
-
----
-
-### Step 3: Design Schema
-
-Create tables:
-- Define columns
-- Choose data types
-
----
-
-### Step 4: Define Relationships
-
-Example:
-- user_id in projects
-- project_id in tasks
-
----
-
-### Step 5: Write Migrations
-
-- Create tables
-- Add constraints
-
----
-
-### Step 6: Run Migrations
-
-- Apply to database
-
----
-
-### Step 7: Build Backend
-
-- Use schema in:
-  - Services
-  - APIs
-
----
-
-## Constraints
-
-Used to enforce rules
-
----
-
-### Types
-
-#### 1. PRIMARY KEY
-
-- Unique identifier
-- Cannot be NULL
-
----
-
-#### 2. FOREIGN KEY
-
-- Links tables
-- Enforces relationships
-
----
-
-#### 3. NOT NULL
-
-- Field must have value
-
----
-
-#### 4. UNIQUE
-
-- No duplicate values
-
----
-
-#### 5. CHECK
-
-- Custom validation
-
-Example:
-```
-age > 0
-```
-
----
-
-## Indexes (High-Level)
-
-### Purpose
-
-- Improve query performance
-
----
-
-### How It Works
-
-- Creates optimized lookup structure
-
----
-
-### Tradeoff
-
-| Benefit | Cost |
-|--------|-----|
-| Faster reads | Slower writes |
-
----
-
-## Important Insight
-
-Do NOT overuse indexes.
-
----
-
-## Schema Design Principles
-
----
-
-### 1. Keep It Simple
-
-- Avoid over-engineering
-- Start minimal
-
----
-
-### 2. Normalize Data
-
-- Avoid duplication
-- Use relationships
-
----
-
-### 3. Use Proper Data Types
-
-- Impacts performance & accuracy
-
----
-
-### 4. Plan for Growth
-
-- Think long-term
-- Avoid frequent migrations
-
----
-
-## Real-World Example
-
-Project Management System:
-
----
-
-### Tables
-
-#### Users
-- id
-- name
-- email
-
----
-
-#### Projects
-- id
-- name
-- user_id
-
----
-
-#### Tasks
-- id
-- title
-- project_id
-
----
-
-### Relationships
-
-- User → Projects (1 to many)
-- Project → Tasks (1 to many)
-
----
-
-## Final Workflow Summary
-
-1. UI → requirements  
-2. Extract entities  
-3. Design schema  
-4. Define relationships  
-5. Write migrations  
-6. Apply migrations  
-7. Build APIs  
-
----
-
-## Final Understanding
-
-Database design is not just about storage.
-
-It is about:
-- Structure
-- Relationships
-- Integrity
-- Scalability
-
----
-
-## End of Part 4
-
-# END OF COMPLETE DATABASE NOTES
+### TODO: Parameterized queries + Postgres internals + SQL Injection 
