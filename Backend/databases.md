@@ -242,17 +242,6 @@ To solve:
 
 ---
 
-## Final Understanding
-
-Database = Persistence  
-DBMS = System that manages persistence efficiently
-
----
-
-## End of Part 1
-
-# Databases — Complete Notes (Part 2)
-
 ## Types of DBMS
 
 At a high level, there are two major types:
@@ -453,9 +442,9 @@ Example:
   - images
   - embeds
 
-➡️ Structure is unpredictable
+Structure is unpredictable
 
-➡️ Best fit: MongoDB
+Best fit: MongoDB
 
 ---
 
@@ -593,20 +582,6 @@ Performance differences between DBs:
 
 ---
 
-## Learning Strategy
-
-Skip:
-- Basic SQL (already widely available)
-
-Focus on:
-- Backend-relevant concepts
-
----
-
-## End of Part 2
-
-# Databases — Complete Notes (Part 3: Data Types)
-
 ## Introduction
 
 Before designing databases, understanding **data types** is critical because:
@@ -657,7 +632,7 @@ CREATE TABLE data_types_demo (
 ### Behavior:
 - First row → 1
 - Next → 2
-- Next → 3
+- Next → 3 
 
 ---
 
