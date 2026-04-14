@@ -1,4 +1,5 @@
 # Full Text Search & Elasticsearch
+# TODO : Implement elastic search vs postgres full text search 
 
 ## Scenario: Year 2005 — The Problem Begins
 
